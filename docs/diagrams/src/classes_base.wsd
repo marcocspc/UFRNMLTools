@@ -1,0 +1,136 @@
+@startuml
+
+title UFRNMLTools
+
+' Interfaces '
+
+' Classes '
+
+package Agent {
+    class Agent {
+        + model : Model
+        + reward : Reward
+        + policy : Policy
+        + observations : List<Observation>
+
+        + learn()
+        + choose_action() : Action
+    }
+
+    class Policy {
+        + choose_action(actions)
+    }
+
+    class Model {
+        + learn(state, action, reward, state_)
+        + predict(state)
+        + load(file_path : string)
+        + save(file_path : string)
+    }
+
+    class Reward {
+        + get_reward(state : State)
+    }
+
+    class Observation {
+        + get_observation(state : State)
+    }
+
+    class EpsilonGreedy
+
+    class FullyConnectedNetworkModel
+    class QTableModel
+    class A3CModel
+
+    class PotentialFields
+    class FeatureMaps
+    class CustomObservationA
+    class CustomObservationB
+
+}
+
+
+package Environment {
+    class Environment {
+        - _foreign_environment
+        + actions : List<Action>
+        + state_size : int
+        + action_space : int
+        
+        + start()
+        + step(action : int) : State
+        + get_action_sample() : Action
+        + get_available_actions() : List<Action>
+        + get_all_actions() : List<Action>
+        + add_action(action : Action)
+        + get_state_size()
+        + get_action_space_size()
+        + reset()
+        + stop()
+        + restart()
+    }
+
+    class State {
+        + spatial_features : List
+        + numeric_features : List
+        + size : int
+
+        + convert_state(foreign_state) : State
+    }
+
+    class Action {
+        + name
+
+        + do()
+    }
+}
+
+package Trainer {
+    class Trainer {
+        + env : Environment
+        + agent : Agent
+
+        + train(episodes : int, steps : int)
+        + play(steps : int)
+    }
+}
+
+' class SC2
+' class Mario 
+' class PacMan
+
+' class ActionSC2Attack
+' class ActionSC2Move
+
+' Relacionamentos '
+
+' Dependência '
+
+State <.. Environment
+
+' Composição '
+
+Agent *-- Model
+Agent *-- Policy
+Agent *-- Reward
+Observation *-- Agent
+
+Trainer *-- Agent
+Trainer *-- Environment
+
+Environment *-- Action
+
+' Herança '
+
+Policy <|-- EpsilonGreedy
+
+Model <|-- FullyConnectedNetworkModel
+Model <|-- QTableModel
+Model <|-- A3CModel
+
+Observation <|-- FeatureMaps
+Observation <|-- PotentialFields
+Observation <|-- CustomObservationA
+Observation <|-- CustomObservationB
+
+@enduml

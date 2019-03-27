@@ -1,0 +1,34 @@
+@startuml
+
+title EnvironmentRepository
+
+package UFRNMLTools {
+    class Environment 
+    class Action
+}
+
+package StarCraft2 {
+    class SC2Env
+    class ActionBuildBarracks
+    class ActionBuildRoachWarren
+}
+
+package Mario {
+    class MarioEnv
+    class ActionJump
+    class ActionMoveRight
+    class ActionRun
+}
+
+' Relacionamentos '
+
+Environment <|-- SC2Env
+Environment <|-- MarioEnv
+
+Action <|-- ActionBuildBarracks
+Action <|-- ActionBuildRoachWarren
+Action <|-- ActionJump
+Action <|-- ActionMoveRight
+Action <|-- ActionRun
+
+@enduml
